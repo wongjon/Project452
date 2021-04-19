@@ -92,6 +92,7 @@ while exit == False:
         filterF = testF/receivedF
         filter = ifft(abs(filterF)) # h(t) = IFFT{Y(S)/X(S)}
         print(filter)
+        np.savetxt("coefficients.csv", filter, delimiter=",") # Just for Debugging purposes
 
         # Connect to serial
         ser = serial.Serial("/dev/ttyACM0", timeout=None)

@@ -20,8 +20,9 @@ if fsT != fsR:
 
 # Dynamic Filter h(t) = IFFT{Y(S)/X(S)}
 filterF = testF/receivedF
-filter = ifft(filterF)
+filter_i = ifft(filterF)
+filter = abs(filter_i)
 print(filter)
 
-np.savetxt("foo.csv", filter, delimiter=",")
+np.savetxt("coefficients.csv", filter, delimiter=",") # For debugging purposes
 
