@@ -25,8 +25,7 @@
 #include <SD.h>
 #include <SPI.h>
 #include <SerialFlash.h>
-#include "low_pass.h"
-#include "band_pass.h"
+#include "lowpass.h"
 
 #define LED 13
 
@@ -57,7 +56,6 @@ struct fir_filter {
 int start_idx = 0;
 struct fir_filter fir_list[] = {
   {LP  , 100},   
-  {BP  , 100},
   {NULL,   0}
 };
 
