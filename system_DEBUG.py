@@ -10,7 +10,8 @@ import time
 import serial
 import os.path
 
-print("Acknowledge you have copied filter_fir.cpp into the correct directory")
+
+p  = input("Acknowledge you have copied filter_fir.cpp into the correct directory")
 
 # TEST TONE (change file to whatever is being tested)
 test_file = input("Enter name of test tone file: ")
@@ -35,7 +36,7 @@ with open(headerPath, 'w') as headerFile:
     headerFile.write('    ')
     headerFile.write('};')
 
-print("Acknowledge that you have flashed the Teensy: ")
+p = input("Acknowledge that you have flashed the Teensy: ")
 
 # START LOOP: WHILE "EXIT" IS NOT TRUE
 exit = False
@@ -151,7 +152,7 @@ while exit == False:
                 n = str(n)
                 headerFile.write(n + ',')
             headerFile.write('};')
-        print("Acknowledge you have flashed the Teensy with new coefficients :")
+        p = input("Acknowledge you have flashed the Teensy with new coefficients: ")
         
         # ITERATIVE METHOD
         register.append(filters)
