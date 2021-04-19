@@ -24,13 +24,10 @@ if fsT != fsR:
 if len(received_init) == len(testF): #same size, no change
     print("Same size")
     receivedF = received_init
-    
-
 elif len(received_init) < len(testF): #rec is smaller, concat first elems onto beginning of rec
     print("received smaller than test")
     diff = len(testF) - len(received_init)
     receivedF = np.concatenate((testF[0:(diff)], received_init))
-
 elif len(received_init) > len(testF): #rec is larger, remove last elem, concat first elems
     print("received larger than test")
     diff = len(received_init) - len(testF)
