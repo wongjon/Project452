@@ -51,19 +51,14 @@ struct fir_filter {
   short num_coeffs;    // num_coeffs must be an even number, 4 or higher
 };
 
+int num_coeff = 0;
+int16_t filt[100000] = {};
 
-// index of current filter. Start with the low pass.
-//Change to 1 for bandpass
-struct fir_filter fir_list[] = {  
-  {BP , 4},
-  {NULL,   0}
-};
 
 
 void setup() {
   Serial.begin(9600);
   delay(300);
-  pinMode(LED, OUTPUT);
 
   // allocate memory for the audio library
   AudioMemory(8);
@@ -80,4 +75,16 @@ void loop()
 {
   //the FIR filter function is interrupt based and is called as soon as 128 
   //data samples of audio input is available
+  // read in the the coefficients from serial and build array
+  // can make first number the size of the array
+  // all others are coefficients, check iteration value by counting commas, pass value into second argument of filter.begin function
+      if (Serial.available() > 0) {
+    // read the incoming byte:
+    incomingByte = Serial.read();
+
+    // say what you got:
+    Serial.print("I received: ");
+    Serial.println(incomingByte, DEC);
+  }
+  
 }
