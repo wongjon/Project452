@@ -47,20 +47,7 @@ AudioConnection c3(myFilterL, 0, audioOutput, 0);
 AudioConnection c4(myFilterR, 0, audioOutput, 1);
 AudioControlSGTL5000 audioShield;
 
-struct fir_filter {
-  short *coeffs;
-  short num_coeffs;    // num_coeffs must be an even number, 4 or higher
-};
-
-// index of current filter. Start with the low pass.
-//Change to 1 for bandpass
-int start_idx = 0;
-struct fir_filter fir_list[] = {
-  {LP  , 100},   
-  {BP  , 100},
-  {NULL,   0}
-};
-
+int arr[150000];
 
 void setup() {
   Serial.begin(9600);
@@ -73,7 +60,7 @@ void setup() {
   audioShield.volume(0.6);
 
   // Initialize the filter
-  myFilterL.begin(fir_list[start_idx].coeffs, fir_list[start_idx].num_coeffs);
+  myFilterL.begin(arr, 320);
   myFilterR.begin(fir_list[start_idx].coeffs, fir_list[start_idx].num_coeffs);
 }
 
