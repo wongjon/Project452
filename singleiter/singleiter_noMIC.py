@@ -42,13 +42,16 @@ elif len(received_init) > len(testF):  # rec is larger, remove last elem, concat
 filterF = testF / receivedF
 pre_filter = ifft(filterF)  # h(t) = IFFT{Y(S)/X(S)}
 pre_filter = np.around(abs(pre_filter))
-coefficients = pre_filter.astype(int)
+coefficients_max = max(pre_filter.astype(int))
+coefficients_scale = int(32767 / coefficients_max)
+coefficients_double = coefficients_scale * pre_filter
+coefficients = coefficients_double.astype(int)
+size = str(len(coefficients))
 
 print("Generated filter: ", coefficients)
 
 # INITIALIZE EMPTY HEADER FILE
 file_path = input("Enter file path of directory (Ex. /home/pi/Desktop/Project452/filters): ")
-size = str(0)
 directory = file_path #folder path
 #get file path
 headerPath = os.path.join(directory, "filters" + '.h')

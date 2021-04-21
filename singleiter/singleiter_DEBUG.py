@@ -13,7 +13,7 @@ p  = input("Acknowledge you have flashed the pass-through filter")
 
 # TEST TONE (change file to whatever is being tested)
 test_file = input("Enter name of test tone file: ")
-file_path = input("Enter file path of directory (Ex. /home/pi/Desktop/Project452/filters): ")
+file_path = input("Enter file path of directory (Ex. /home/pi/Desktop/Project452/singleiter/filters): ")
 fsT, test_tone = wavfile.read(test_file)
 const_len = len(test_tone)
 print("Test tone sampling rate: ", fsT)
@@ -107,18 +107,28 @@ elif len(received_init) > len(testF):  # rec is larger, remove last elem, concat
 filterF = testF / receivedF
 pre_filter = ifft(filterF)  # h(t) = IFFT{Y(S)/X(S)}
 pre_filter = np.around(abs(pre_filter))
+coefficients_max = max(pre_filter.astype(int))
+coefficients_scale = int(32767 / coefficients_max)
+#coefficients_double = coefficients_scale * pre_filter
+#coefficients = coefficients_double.astype(int)
 coefficients = pre_filter.astype(int)
-
+size = str(len(coefficients))
 print("Generated filter: ", coefficients)
+print(len(coefficients))
+
 # CREATE HEADER FILE
 # defineGuard = itemName.upper() + '_H_INCLUDED'
+
 with open(headerPath, 'w') as headerFile:
     headerFile.write('#include <stdint.h>')
-    headerFile.write('\n#define FILT_L = ' + size + '\n\n')
+    headerFile.write('\n#define FILT_L = ' + size + ';\n\n')
     headerFile.write('int16_t FILT[' + size + '] = {' + '\n')
     headerFile.write('    ')
-    for n in coefficients:
-        n = str(n)
+    for n in range(len(coefficients)-1):
+        n = str(coefficients[n])
         headerFile.write(n + ',')
+    headerFile.write(str(coefficients[len(coefficients)-1]))
     headerFile.write('};')
 p = input("Acknowledge you have flashed the Teensy with new coefficients: ")
+
+

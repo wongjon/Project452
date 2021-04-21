@@ -51,13 +51,13 @@ struct fir_filter {
   short num_coeffs;    // num_coeffs must be an even number, 4 or higher
 };
 
-int BPL = 4;
-int16_t BP[BPL] = {32767, 0, 0, 0};
+int PTL = 4;
+int16_t PT[4] = {32767, 0, 0, 0};
 
 // index of current filter. Start with the low pass.
 //Change to 1 for bandpass
 struct fir_filter fir_list[] = {  
-  {BP , BPL},
+  {PT , 4 },
   {NULL,   0}
 };
 
