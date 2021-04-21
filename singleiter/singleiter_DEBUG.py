@@ -107,8 +107,8 @@ elif len(received_init) > len(testF):  # rec is larger, remove last elem, concat
 filterF = testF / receivedF
 pre_filter = ifft(filterF)  # h(t) = IFFT{Y(S)/X(S)}
 pre_filter = np.around(abs(pre_filter))
-coefficients_max = max(pre_filter.astype(int))
-coefficients_scale = int(32767 / coefficients_max)
+#coefficients_max = max(pre_filter.astype(int))
+#coefficients_scale = int(32767 / coefficients_max)
 #coefficients_double = coefficients_scale * pre_filter
 #coefficients = coefficients_double.astype(int)
 coefficients = pre_filter.astype(int)

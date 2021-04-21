@@ -4,6 +4,7 @@
 #include <SPI.h>
 #include <SerialFlash.h>
 #include "filters.h"
+#include "band_pass.h"
 
 
 
@@ -34,8 +35,8 @@ struct fir_filter {
 // index of current filter. Start with the low pass.
 //Change to 1 for bandpass
 struct fir_filter fir_list[] = {  
-  {FILT , 22050},
-  {NULL,   0}
+  {FILT , 8820},
+  {BP,   100}
 };
 
 

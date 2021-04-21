@@ -26,7 +26,7 @@
 #include <SPI.h>
 #include <SerialFlash.h>
 //#include "filter.h"
-
+#include "band_pass.h"
 
 #define LED 13
 
@@ -60,7 +60,7 @@ int16_t FILT[22050] = {82,89,45,102,131,9,92,52,43,39,77,35,114,117,54,38,10,9,6
 //Change to 1 for bandpass
 struct fir_filter fir_list[] = {  
   {FILT , 22050 },
-  {NULL,   0}
+  {BP,   100}
 };
 
 
@@ -75,8 +75,8 @@ void setup() {
   audioShield.volume(0.8);
 
   // Initialize the filter
-  myFilterL.begin(fir_list[0].coeffs, fir_list[0].num_coeffs); //Choose the first filter
-  myFilterR.begin(fir_list[0].coeffs, fir_list[0].num_coeffs);
+  myFilterL.begin(fir_list[1].coeffs, fir_list[1].num_coeffs); //Choose the first filter
+  myFilterR.begin(fir_list[1].coeffs, fir_list[1].num_coeffs);
 }
 
 
