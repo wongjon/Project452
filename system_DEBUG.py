@@ -23,7 +23,7 @@ print("Length of test tone array: ", const_len)
 size = str(0)
 directory = file_path #folder path
 #get file path
-headerPath = os.path.join(directory, "filter" + '.h')
+headerPath = os.path.join(directory, "filters" + '.h')
 
 # CREATE HEADER FILE
 # defineGuard = itemName.upper() + '_H_INCLUDED'
@@ -105,7 +105,7 @@ while exit == False:
         received_init = fft(received)
         print("Received sampling rate: ", fsR)
         testF = fft(test_tone)
-        
+
         if fsT != fsR:  # Ensure same sampling rate
             print("received.wav and test.wav do not have the same sampling rate")
             exit()
