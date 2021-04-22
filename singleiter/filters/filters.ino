@@ -49,8 +49,8 @@ void setup() {
   audioShield.volume(0.8);
 
   // Initialize the filter
-  myFilterL.begin(fir_list[0].coeffs, fir_list[0].num_coeffs); //Choose the first filter
-  myFilterR.begin(fir_list[0].coeffs, fir_list[0].num_coeffs);
+  myFilterL.begin(fir_list[1].coeffs, fir_list[1].num_coeffs); //Choose the first filter
+  myFilterR.begin(fir_list[1].coeffs, fir_list[1].num_coeffs);
 }
 
 
