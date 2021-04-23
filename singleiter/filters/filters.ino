@@ -4,6 +4,7 @@
 #include <SPI.h>
 #include <SerialFlash.h>
 #include "filters.h"
+#include "band_pass.h"
 
 
 
@@ -26,7 +27,7 @@ AudioControlSGTL5000 audioShield;
 
 struct fir_filter {
   short *coeffs;
-  short num_coeffs;    // num_coeffs must be an even number, 4 or higher
+  int num_coeffs;    // num_coeffs must be an even number, 4 or higher
 };
 
 
@@ -34,8 +35,8 @@ struct fir_filter {
 // index of current filter. Start with the low pass.
 //Change to 1 for bandpass
 struct fir_filter fir_list[] = {  
-  {FILT , 132300},
-  {NULL,   0}
+  {FILT , 5592},
+  {BP,   100}
 };
 
 
