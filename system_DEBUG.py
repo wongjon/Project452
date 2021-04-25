@@ -23,7 +23,7 @@ print("Length of test tone array: ", const_len)
 size = str(0)
 directory = file_path #folder path
 #get file path
-headerPath = os.path.join(directory, "filters" + '.h')
+headerPath = os.path.join(directory, "filter" + '.h')
 
 # CREATE HEADER FILE
 # defineGuard = itemName.upper() + '_H_INCLUDED'
@@ -105,7 +105,7 @@ while exit == False:
         received_init = fft(received)
         print("Received sampling rate: ", fsR)
         testF = fft(test_tone)
-
+        
         if fsT != fsR:  # Ensure same sampling rate
             print("received.wav and test.wav do not have the same sampling rate")
             exit()
@@ -125,29 +125,31 @@ while exit == False:
             receivedF = np.concatenate((testF[0:(diff)], copy))
 
         # FILTER CALCULATION
-        filterF = testF/receivedF
-        pre_filter = ifft(filterF) # h(t) = IFFT{Y(S)/X(S)}
-        coefficients = abs(pre_filter)
-        print("Generated filter: ", coefficients)
+        filterF = testF / receivedF
+        filterF = filterF[(peaks_neg[0]):(peaks_neg[1])]
+        pre_filter = ifft(filterF)  # h(t) = IFFT{Y(S)/X(S)}
+        pre_filter = abs(pre_filter)
 
-        # SENDING FILTER TO TEENSY
+        coefficients_max = max(pre_filter)
+        coefficients_scale = int(32767 / coefficients_max)
+        coefficients_double = coefficients_scale * pre_filter
+        coefficients = coefficients_double.astype(int)
         size = str(len(coefficients))
-        directory = file_path #folder path
-        #get file path
-        headerPath = os.path.join(directory, "filter" + '.h')
+        print("Generated filter: ", coefficients)
 
         # CREATE HEADER FILE
         # defineGuard = itemName.upper() + '_H_INCLUDED'
+
         with open(headerPath, 'w') as headerFile:
             headerFile.write('#include <stdint.h>')
-            headerFile.write('\n#define BPL ' + size + '\n\n')
-            headerFile.write('real64_t BP[' + size + '] = {' + '\n')
+            headerFile.write('\n#define FILT_L = ' + size + ';\n\n')
+            headerFile.write('int16_t FILT[' + size + '] = {' + '\n')
             headerFile.write('    ')
-            for n in coefficients:
-                n = str(n)
+            for n in range(len(coefficients)-1):
+                n = str(coefficients[n])
                 headerFile.write(n + ',')
+            headerFile.write(str(coefficients[len(coefficients)-1]))
             headerFile.write('};')
-        p = input("Acknowledge you have flashed the Teensy with new coefficients: ")
         
         # ITERATIVE METHOD
         register.append(coefficients)
