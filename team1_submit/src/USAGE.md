@@ -7,7 +7,7 @@ Uniqnames: arjuncha, ravyjenk, steptlee, wongjon
 
 
 ## Requirements
----
+
 ### You will need:
 * Raspberry Pi 4 or other Linux computer
 * Teensy 4.1
@@ -38,7 +38,7 @@ Python Libraries:
 * matplotlib (for testing/debugging)
 
 ## Running Single Iter
----
+
 The directory `singleiter` contains the software deliverable. Connect the microphone and Teensy to your Raspberry Pi 4 via USB. Use the Teensy audio shield to connect the Raspberry Pi 4 audio out to the Teensy audio in and the Teensy audio out to your speaker sound system. Flash `passthrough_filt.ino` as described above if you have not already done so.
 
 Navigate to the `singleiter` directory and in the command line, run:
@@ -63,7 +63,7 @@ The software will play a two second start tone followed by `filter_gen.wav`. As 
 The softwawre will also output the coefficients to a C Header File named `filters.h` in the `filters` directory. Once the header file has been generated, navigate to the `filters` directory and flash `filters.ino` onto the Teensy. This will flash the generated filter onto the Teensy. Acknowledge the process is complete by pressing any key.
 
 ## Using the Filter
----
+
 Once `filters.ino` has been flashed onto the Teensy, the Teensy will apply the generated filter onto any incoming audio. The Teensy no longer needs the Raspberry Pi 4 and can be supplied with any USB power source. Connnect the Teensy audio in to any audio device, such as your laptop or phone, and the audio will automatically be filtered.
 
 ### Planned Features
