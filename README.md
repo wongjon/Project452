@@ -1,6 +1,7 @@
 # EECS 452 Project W21
 ## 3-D Optimization Tool
 Contributors: Arjun Chandresekhar, Ravynne Jenkins, Stephen Lee, Jonathan Wong
+UPDATE 4/18/21: Final Project submission is under team1_submit.
 
 ## Overview
 This folder contains the code in development for the 3-D Optimization Tool project. Software in the folders contain stable code at various time stamps. Software in the main folder is under development. Components and tests created during development are contained in the component_software folder. Files with the extension "_DEBUG" are not stable, while files without this extension can be run. Components and tests created during development are_
